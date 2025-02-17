@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS - Programming</title>
+    <link rel="stylesheet" href="Style.css">
+    <script src="Script.js"></script>
+
+</head>
+<body>
+
+<header>
+    <h1>Programming</h1>
+    <div id="header-right">
+        <a href="Index.html" id="home-button" class="menu-button">Home</a>
+        <a href="Login.html" id="login-button" class="menu-button">Log In</a>
+    </div>
+</header>
+
+<div class="content">
+    <nav>
+        <h2>Topics</h2>
+        <a href="Css.html" class="side-button" id="css-link">CSS</a>
+        <a href="Html.html" class="side-button" id="html-link">HTML</a>
+        <a href="JavaScript.html" class="side-button" id="javascript-link">JavaScript</a>
+        <a href="Java.html" class="side-button" id="java-link">Java</a>
+        <a href="Python.html" class="side-button" id="python-link">Python</a>
+    </nav>
+
+    <div class="main-content">
+        <h2>Java</h2>
+        <p>Java, i hate it</p>
+    </div>
+
+    <aside class="ads">
+        <h2>Hot singles in your area</h2>
+        <div id="ad-container">
+            <!-- Dynamically loaded ads/images will be inserted here -->
+        </div>
+    </aside>
+</div>
+
+<footer>
+    <p>Contact us at Andreas@Anderson.com</p>
+</footer>
+
+<script>
+    const currentPage = window.location.pathname.split('/').pop();
+    const links = document.querySelectorAll('.side-button, .menu-button');
+    links.forEach(link => {
+        if (link.href.includes(currentPage)) {
+            link.classList.add('selected');
+        }
+    });
+</script>
+
+</body>
+</html>

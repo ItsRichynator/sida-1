@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In</title>
+    <link rel="stylesheet" href="Style.css">
+</head>
+<body>
+
+<header>
+    <h1>Programming</h1>
+    <div id="header-right">
+        <a href="Index.html" id="home-button" class="menu-button">Home</a>
+        <a href="Login.html" id="login-button" class="menu-button">Log In</a>
+        <a href="SignUp.html" id="signup-button" class="menu-button">Sign Up</a>
+    </div>
+</header>
+
+<div class="content">
+    <div class="login-form">
+        <h2>Log In</h2>
+        <form id="loginForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit" class="menu-button">Log In</button>
+        </form>
+        <p id="error-message" class="error-message"></p>
+        <p>Don't have an account? <a href="SignUp.html">Sign Up</a></p>
+    </div>
+</div>
+
+<footer>
+    <p>Contact us at Andreas@Anderson.com</p>
+</footer>
+
+<script>
+    // Handle login form submission
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form from submitting normally
+
+        // Get user input
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        // Retrieve stored user data from localStorage
+        const storedUsername = localStorage.getItem('username');
+        const storedPassword = localStorage.getItem('password');
+
+        // Check if entered credentials match stored credentials
+        if (username === storedUsername && password === storedPassword) {
+            // Set login state in localStorage
+            localStorage.setItem('loggedIn', 'true');
+
+            // Redirect to the dashboard
+            window.location.href = 'dashboard.html';
+        } else {
+            // Show error message
+            document.getElementById('error-message').textContent = 'Invalid username or password.';
+        }
+    });
+</script>
+
+</body>
+</html>

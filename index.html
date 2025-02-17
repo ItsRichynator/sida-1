@@ -1,125 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>Grandtour</title>
-	<link rel="stylesheet" type="text/css" href="Style.css">
-	<link rel="icon" type="image/x-icon" href="logo.jpg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Programming</title>
+  <link rel="stylesheet" href="Style.css">
+  <script src="Script.js"></script>
 </head>
 <body>
 
-<div id="navbar">
-	<div id="navbar-right">
-		<li><a class="active" href="index.html">Grandtour</a></li>
-		<li><a href="Hammond.html">Hammond</a></li>
-		<li><a href="Clarkson.html">Clarkson</a></li>
-		<li><a href="May.html">May</a></li>
-	</div>
-	<h1 style = "color: white;">The Grandtour</h1>
+<header>
+  <h1>Programming</h1>
+  <div id="header-right">
+    <a href="Index.html" id="home-button" class="menu-button">Home</a>
+    <a href="Login.html" id="login-button" class="menu-button">Log In</a>
+    <a href="Dashboard.html" id="mysite-button" class="menu-button">My Site</a>
+  </div>
+</header>
+
+<div class="content">
+  <nav>
+    <h2>Topics</h2>
+    <a href="Css.html" class="side-button" id="css-link">CSS</a>
+    <a href="Html.html" class="side-button" id="html-link">HTML</a>
+    <a href="JavaScript.html" class="side-button" id="javascript-link">JavaScript</a>
+    <a href="Java.html" class="side-button" id="java-link">Java</a>
+    <a href="Python.html" class="side-button" id="python-link">Python</a>
+  </nav>
+
+  <div class="main-content">
+    <h2 id="welcome-message">Welcome to the Programming Website</h2>
+    <p>Explore the topics from the left menu to learn more about CSS, HTML, JavaScript, Java, and Python!</p>
+  </div>
+
+  <aside class="ads">
+    <h2>Hot singles in your area</h2>
+    <div id="ad-container">
+    </div>
+  </aside>
 </div>
 
-<div style="margin-top:210px;padding:15px 15px 25px;font-size:30px">	
-	<h1 style = "text-align: center;"id="myHeader">The Grandtour</h1>
-	<p style = "text-align: center;">Cars and shit</p>
-	<div style="text-align:center;">
-		<img src="TGT.jpg" alt="The Grandtour" id="main_image">
-	</div>
-	<h1 style = "text-align: center;">Hosts</h1>
-		<div class="cocontainer">
-			<div class="cosquare">
-				<div class="pscontainer">
-					<a href = "May.html">
-					<img class="psimage" src="May.jpg" alt="James May">
-					</a>
-					<div class="overlay">James May</div>
-				</div>
-			</div>
-			<div class="cosquare">
-				<div class="pscontainer">
-					<a href = "Clarkson.html">
-						<img class="psimage" src="Clarkson.jpg" alt="Jeremy Clarkson"> 
-					</a>
-					<div class="overlay">Jeremy Clarkson</div>
-				</div>
-			</div>
-			<div class="cosquare">
-				<div class="pscontainer">
-					<a href = "Hammond.html">
-						<img class="psimage" src="Hammond.jpg" alt="Richard Hammond"> 
-					</a>
-					<div class="overlay">Richard Hammond</div>
-				</div>
-			</div>
-		</div>
-	</div>		
-	<div id="FAQ" class="tabcontent">
-		<h1 style="text-align: center; font-weight: bold; color:black;">FAQ</h1>
-		<button class="accordion">Whats the show about?</button>	
-			<div class="panel">
-				<div class="FAQcontainer"> 
-					<div class="FAQtext-container">
-					<p>The show is about the trio and the cars they drive in both special episodes and regular episodes</p>
-				</div>
-			</div>
-		</div>
+<footer>
+  <p>Contact us at Andreas@Anderson.com</p>
+</footer>
 
-		<button class="accordion">Who are they?</button>	
-			<div class="panel">
-				<div class="FAQcontainer"> 
-					<div class="FAQtext-container">
-					<p>The trio contains Richard Hammond, Jeremy Clarkson and James May</p>
-				</div>
-			</div>
-		</div>
-		
-		<button class="accordion">How are the regular episodes designed?</button>	
-			<div class="panel">
-				<div class="FAQcontainer"> 
-					<div class="FAQtext-container">
-					<p>The regular episodes usualy have the trio sitting in there studio where they show clips from car tests and oftenly have a guest on the show as well.</p>
-				</div>
-			</div>
-		</div>
-		
-		<button class="accordion">What are the special episodes like?</button>	
-			<div class="panel">
-				<div class="FAQcontainer"> 
-					<div class="FAQtext-container">
-					<p>The specials are a bit diffrent from the regular since instead of a singe episode they oftenly have a part 1 and 2 and that instead of reviewing cars they have a mission to complete</p>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-<script>
-// When the user scrolls down 80px from the top of the document, resize the navbar's padding and the logo's font size
-window.onscroll = function() {scrollFunction()};
-
-function scrollFunction() {
-  if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
-    document.getElementById("navbar").style.padding = "10px 10px";
-    document.getElementById("logo").style.fontSize = "25px";
-  } else {
-    document.getElementById("navbar").style.padding = "80px 10px";
-    document.getElementById("logo").style.fontSize = "35px";
-  }
-}
-var acc = document.getElementsByClassName("accordion");
-var i;
-
-for (i = 0; i < acc.length; i++) {
-   acc[i].addEventListener("click", function() {
-      /* Toggle between adding and removing the "active" class,
-      to highlight the button that controls the panel */
-      this.classList.toggle("active");
-
-      /* Toggle between hiding and showing the active panel */
-      var panel = this.nextElementSibling;
-      if (panel.style.display === "block") {
-         panel.style.display = "none";
-      } else {
-         panel.style.display = "block";
-      }
-   });
-}
-</script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Link</title>
+</head>
+<body>
+<label for="terms">I agree to the <a href="terms_of_service.html" target="_blank"> Terms of Service </a></label>
+<div id="my-container"></div>
+</body>
+<script>
+    const storedUsername = localStorage.getItem('username');
+    const storedPassword = localStorage.getItem('password');
+    localStorage.setItem('username',"tempusername");
+    localStorage.setItem('password',"temppassword");
+    const loggedIn = localStorage.getItem('loggedIn');
+    const container = document.getElementById("my-container");
+    container.innerHTML = storedUsername + " " + storedPassword + " Is logged in:" + loggedIn;
+    const adImages = [
+        './Ads/Ad1.jpg', './Ads/Ad2.jpg', './Ads/Ad3.jpg', './Ads/Ad4.jpg',
+        './Ads/Ad5.jpg', './Ads/Ad6.jpg', './Ads/Ad7.jpg', './Ads/Ad8.jpg',
+        './Ads/Ad9.jpg','./Ads/Ad10.jpg', './Ads/Ad11.jpg','./Ads/Ad12.jpg',
+        './Ads/Ad13.jpg','./Ads/Ad14.jpg','./Ads/Ad15.jpg','./Ads/Ad16.jpg',
+        './Ads/Ad17.jpg','./Ads/Ad18.jpg','./Ads/Ad19.jpg','./Ads/Ad20.jpg',
+        './Ads/Ad21.jpg','./Ads/Ad22.jpg','./Ads/Ad23.jpg','./Ads/Ad24.jpg',
+        './Ads/Ad25.jpg','./Ads/Ad26.jpg','./Ads/Ad27.jpg','./Ads/Ad28.jpg',
+        './Ads/Ad29.jpg','./Ads/Ad30.jpg','./Ads/Ad31.jpg','./Ads/Ad32.jpg',
+        './Ads/Ad33.jpg','./Ads/Ad34.jpg','./Ads/Ad35.jpg','./Ads/Ad36.jpg',
+        './Ads/Ad37.jpg','./Ads/Ad38.jpg','./Ads/Ad39.jpg','./Ads/Ad40.jpg',
+        './Ads/Ad41.jpg','./Ads/Ad42.jpg','./Ads/Ad43.jpg','./Ads/Ad44.jpg',
+        './Ads/Ad45.jpg','./Ads/Ad46.jpg','./Ads/Ad47.jpg','./Ads/Ad48.jpg',
+        './Ads/Ad49.jpg','./Ads/Ad50.jpg','./Ads/Ad51.jpg','./Ads/Ad52.jpg',
+        './Ads/Ad56.jpg','./Ads/Ad57.jpg',
+
+    ];
+
+    // Shuffle the images to pick two random ones
+    const shuffledAds = adImages.sort(() => Math.random() - 0.5);
+    const selectedAds = shuffledAds.slice(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57);
+
+    selectedAds.forEach(ad => {
+        const img = document.createElement('img');
+        img.src = ad;
+        img.alt = 'Ad Image:'+ ad;
+        img.className = 'ad-image';
+        console.log('Loading image:', img.src);
+        img.onerror = () => {
+            console.error('Failed to load image:', img.src);
+        };
+
+        adContainer.appendChild(img);
+    });
+    }
+    window.onload = loadRandomAds;
+
+</script>
+</html>

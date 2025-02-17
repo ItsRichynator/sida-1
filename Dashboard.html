@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="Style.css">
+</head>
+<body>
+
+<header>
+    <h1>Dashboard</h1>
+    <div id="header-right">
+        <a href="Index.html" id="home-button" class="menu-button">Home</a>
+        <button id="logout-button" class="menu-button">Log Out</button>
+    </div>
+</header>
+
+<div class="main-content">
+    <h2>Welcome to Your Dashboard</h2>
+    <p>Congratulations! You are now logged in.</p>
+    <p>Return to homepage to continue exploring content.</p>
+    <div id="user-info"></div>
+</div>
+
+<footer>
+    <p>Contact us at Andreas@Anderson.com</p>
+</footer>
+
+<script>
+    window.onload = function() {
+        if (localStorage.getItem('loggedIn') !== 'true') {
+            window.location.href = 'login.html';
+        }
+
+        document.getElementById('logout-button').addEventListener('click', function() {
+            localStorage.removeItem('loggedIn');
+            window.location.href = 'login.html';
+        });
+
+        const storedUsername = localStorage.getItem('username');
+        const storedPassword = localStorage.getItem('password');
+        const userInfoDiv = document.getElementById('user-info'); // Get the div
+
+        if (storedUsername && storedPassword) {
+            const usernamePara = document.createElement('p');
+            usernamePara.textContent = `Username: ${storedUsername}`;
+
+            const passwordPara = document.createElement('p');
+            passwordPara.textContent = `Password: ${storedPassword}`;
+
+            userInfoDiv.appendChild(usernamePara);  // Append to the div
+            userInfoDiv.appendChild(passwordPara);
+        } else {
+            userInfoDiv.textContent = "No username or password stored.";
+        }
+    };
+
+
+</script>
+
+</body>
+</html>
