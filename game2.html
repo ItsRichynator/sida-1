@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game 2 - Gaming Platform</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Desktop View -->
+    <div class="desktop-view">
+        <div class="container">
+            <div class="grid">
+                <!-- Left Navigation -->
+                <div class="sidebar">
+                    <div class="nav-buttons">
+                        <button onclick="window.location.href='store.html'">Store</button>
+                        <button onclick="window.location.href='library.html'">Library</button>
+                        <button onclick="window.location.href='app-settings.html'">App Settings</button>
+                        <button onclick="window.location.href='friends.html'">Friends</button>
+                    </div>
+                    
+                    <div class="games-list">
+                        <h2>Games:</h2>
+                        <ul>
+                            <li><a href="game1.html">Game 1</a></li>
+                            <li class="selected"><a href="game2.html">Game 2</a></li>
+                            <li><a href="game3.html">Game 3</a></li>
+                            <li><a href="game4.html">Game 4</a></li>
+                            <li><a href="game5.html">Game 5</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Main Content -->
+                <div class="main-content">
+                    <!-- Header -->
+                    <div class="header">
+                        <div class="logo-container">
+                            <a href="index.html" style="display: flex; align-items: center; text-decoration: none; color: inherit;">
+                                <div class="logo">Logo</div>
+                                <h1>Water</h1>
+                            </a>
+                        </div>
+                        <div class="user-settings" id="user-profile">
+                            <span id="username-display">Username</span>
+                            <div class="profile-pic">
+                                <img id="profile-pic-display" src="https://via.placeholder.com/32" alt="Profile Picture">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Game Content -->
+                    <div class="game-content">
+                        <div class="game-display">
+                            <h2>Game 2</h2>
+                            <div class="game-image">
+                                <img src="https://via.placeholder.com/300" alt="Game 2">
+                            </div>
+                        </div>
+                        
+                        <div class="game-info">
+                            <h2>Game info</h2>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            
+                            <h3>Minimum/recommended requirements</h3>
+                            <ul class="requirements">
+                                <li class="cpu">• Cpu: Core i7</li>
+                                <li class="gpu">• Gpu: RTX 2060</li>
+                                <li class="ram">• Ram: 16GB</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Mobile View -->
+    <div class="mobile-view">
+        <!-- Mobile Header -->
+        <div class="mobile-header">
+            <button id="menu-toggle" class="menu-button">☰</button>
+            <div class="mobile-title">
+                <div class="settings-icon">⚙️</div>
+                <a href="index.html" style="text-decoration: none; color: inherit;">
+                    <span>Water</span>
+                </a>
+                <div class="profile-pic">
+                    <img id="mobile-profile-pic" src="https://via.placeholder.com/32" alt="Profile Picture">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation -->
+        <div id="mobile-nav" class="mobile-nav hidden">
+            <div class="mobile-nav-buttons">
+                <button onclick="window.location.href='store.html'">Store</button>
+                <button onclick="window.location.href='library.html'">Library</button>
+                <button onclick="window.location.href='app-settings.html'">App Settings</button>
+                <button onclick="window.location.href='friends.html'">Friends</button>
+            </div>
+        </div>
+        
+        <!-- Games List -->
+        <div class="mobile-games">
+            <h2>Games:</h2>
+            <ul class="mobile-games-list">
+                <li><a href="game1.html">Game 1</a></li>
+                <li class="selected"><a href="game2.html">Game 2</a></li>
+                <li><a href="game3.html">Game 3</a></li>
+                <li><a href="game4.html">Game 4</a></li>
+                <li><a href="game5.html">Game 5</a></li>
+            </ul>
+        </div>
+        
+        <!-- Selected Game View -->
+        <div class="mobile-game-view">
+            <h2>Game 2</h2>
+            <div class="mobile-game-image">
+                <img src="https://via.placeholder.com/200" alt="Game 2">
+            </div>
+            
+            <h3>Game info</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            
+            <h3>Minimum/recommended requirements</h3>
+            <ul class="requirements">
+                <li class="cpu">• Cpu: Core i7</li>
+                <li class="gpu">• Gpu: RTX 2060</li>
+                <li class="ram">• Ram: 16GB</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

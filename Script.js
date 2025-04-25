@@ -1,67 +1,465 @@
-// Check if user is logged in
-window.onload = function() {
-    const loginButton = document.getElementById('login-button');
-    if (localStorage.getItem('loggedIn') === 'true') {
-        // Change "Log In" to "Dashboard" if logged in
-        loginButton.textContent = 'Dashboard';
-        loginButton.href = 'Dashboard.html';
+document.addEventListener("DOMContentLoaded", () => {
+  // Get the current page
+  const currentPage = window.location.pathname.split("/").pop() || "index.html"
+
+  // Check and apply theme
+  applyTheme()
+
+  // Mobile menu toggle
+  const menuToggle = document.getElementById("menu-toggle")
+  const mobileNav = document.getElementById("mobile-nav")
+
+  if (menuToggle && mobileNav) {
+    menuToggle.addEventListener("click", () => {
+      mobileNav.classList.toggle("hidden")
+    })
+  }
+
+  // Check if user is logged in
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"))
+
+  // If not logged in and not on login page, redirect to login
+  if (!currentUser && currentPage !== "login.html") {
+    window.location.href = "login.html"
+    return
+  }
+
+  // Update user profile if logged in
+  if (currentUser) {
+    const usernameDisplays = document.querySelectorAll("#username-display, #mobile-username")
+    const profilePics = document.querySelectorAll("#profile-pic-display, #mobile-profile-pic")
+
+    usernameDisplays.forEach((display) => {
+      if (display) {
+        display.textContent = currentUser.username
+      }
+    })
+
+    profilePics.forEach((pic) => {
+      if (pic) {
+        pic.src = currentUser.profilePicture
+      }
+    })
+
+    // Add logout functionality
+    const userProfiles = document.querySelectorAll("#user-profile")
+    userProfiles.forEach((profile) => {
+      if (profile) {
+        profile.style.cursor = "pointer"
+        profile.addEventListener("click", () => {
+          if (confirm("Do you want to log out?")) {
+            localStorage.removeItem("currentUser")
+            window.location.href = "login.html"
+          }
+        })
+      }
+    })
+  }
+
+  // Theme toggle functionality
+  const themeToggle = document.getElementById("theme-toggle")
+  const mobileThemeToggle = document.getElementById("mobile-theme-toggle")
+
+  if (themeToggle) {
+    // Set initial state based on localStorage
+    const isDarkMode = localStorage.getItem("darkMode") === "true"
+    themeToggle.checked = isDarkMode
+
+    themeToggle.addEventListener("change", () => {
+      toggleTheme(themeToggle.checked)
+    })
+  }
+
+  if (mobileThemeToggle) {
+    // Set initial state based on localStorage
+    const isDarkMode = localStorage.getItem("darkMode") === "true"
+    mobileThemeToggle.checked = isDarkMode
+
+    mobileThemeToggle.addEventListener("change", () => {
+      toggleTheme(mobileThemeToggle.checked)
+    })
+  }
+
+  // Login page functionality
+  if (currentPage === "login.html") {
+    // If already logged in, redirect to index
+    if (currentUser) {
+      window.location.href = "index.html"
+      return
     }
-};
 
+    // Tab switching
+    const tabs = document.querySelectorAll(".tab")
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", function () {
+        // Remove active class from all tabs
+        tabs.forEach((t) => t.classList.remove("active"))
+        // Add active class to clicked tab
+        this.classList.add("active")
 
-function loadRandomAds() {
-    const adContainer = document.getElementById('ad-container');
+        // Hide all tab contents
+        document.querySelectorAll(".tab-content").forEach((content) => {
+          content.classList.remove("active")
+        })
 
-    const adImages = [
-        './Ads/Ad1.jpg', './Ads/Ad2.jpg', './Ads/Ad3.jpg', './Ads/Ad4.jpg',
-        './Ads/Ad5.jpg', './Ads/Ad6.jpg', './Ads/Ad7.jpg', './Ads/Ad8.jpg',
-        './Ads/Ad9.jpg','./Ads/Ad10.jpg', './Ads/Ad11.jpg','./Ads/Ad12.jpg',
-        './Ads/Ad13.jpg','./Ads/Ad14.jpg','./Ads/Ad15.jpg','./Ads/Ad16.jpg',
-        './Ads/Ad17.jpg','./Ads/Ad18.jpg','./Ads/Ad19.jpg','./Ads/Ad20.jpg',
-        './Ads/Ad21.jpg','./Ads/Ad22.jpg','./Ads/Ad23.jpg','./Ads/Ad24.jpg',
-        './Ads/Ad25.jpg','./Ads/Ad26.jpg','./Ads/Ad27.jpg','./Ads/Ad28.jpg',
-        './Ads/Ad29.jpg','./Ads/Ad30.jpg','./Ads/Ad31.jpg','./Ads/Ad32.jpg',
-        './Ads/Ad33.jpg','./Ads/Ad34.jpg','./Ads/Ad35.jpg','./Ads/Ad36.jpg',
-        './Ads/Ad37.jpg','./Ads/Ad38.jpg','./Ads/Ad39.jpg','./Ads/Ad40.jpg',
-        './Ads/Ad41.jpg','./Ads/Ad42.jpg','./Ads/Ad43.jpg','./Ads/Ad44.jpg',
-        './Ads/Ad45.jpg','./Ads/Ad46.jpg','./Ads/Ad47.jpg','./Ads/Ad48.jpg',
-        './Ads/Ad49.jpg','./Ads/Ad50.jpg','./Ads/Ad51.jpg','./Ads/Ad52.jpg',
-        './Ads/Ad56.jpg','./Ads/Ad57.jpg',
+        // Show the corresponding tab content
+        const tabId = this.getAttribute("data-tab")
+        document.getElementById(tabId + "-tab").classList.add("active")
+      })
+    })
 
-    ];
+    // Profile picture upload
+    const uploadTrigger = document.getElementById("upload-trigger")
+    const fileInput = document.getElementById("profile-image")
+    const imagePreview = document.getElementById("profile-image-preview")
 
-    // Shuffle the images to pick two random ones
-    const shuffledAds = adImages.sort(() => Math.random() - 0.5);
-    const selectedAds = shuffledAds.slice(0, 2);
+    if (uploadTrigger && fileInput && imagePreview) {
+      uploadTrigger.addEventListener("click", () => {
+        fileInput.click()
+      })
 
-    selectedAds.forEach(ad => {
-        const img = document.createElement('img');
-        img.src = ad;
-        img.alt = 'Ad Image:'+ ad;
-        img.className = 'ad-image';
-        console.log('Loading image:', img.src);
-        img.onerror = () => {
-            console.error('Failed to load image:', img.src);
-        };
+      fileInput.addEventListener("change", function () {
+        const file = this.files[0]
+        if (file) {
+          const reader = new FileReader()
+          reader.onload = (e) => {
+            imagePreview.src = e.target.result
+          }
+          reader.readAsDataURL(file)
+        }
+      })
+    }
 
-        adContainer.appendChild(img);
-    });
-}
-window.onload = loadRandomAds;
+    // Login form submission
+    const loginForm = document.getElementById("login-form")
+    if (loginForm) {
+      loginForm.addEventListener("submit", (e) => {
+        e.preventDefault()
 
-//log in button switch
-// Get the buttons
-const loginButton = document.getElementById('login-Button');
-const mysiteButton = document.getElementById('mysite-Button');
+        const username = document.getElementById("login-username").value
+        const password = document.getElementById("login-password").value
 
-// Check if 'loggedIn' is true in local storage
-const loggedIn = localStorage.getItem('loggedIn') === 'true';
+        // Get users from localStorage
+        const users = JSON.parse(localStorage.getItem("users")) || []
 
-// Show/hide buttons based on login status
-if (loggedIn) {
-    loginButton.style.display = 'none';
-    mysiteButton.style.display = 'block';
-} else {
-    loginButton.style.display = 'block';
-    mysiteButton.style.display = 'none';
-}
+        // Find user
+        const user = users.find((u) => u.username === username && u.password === password)
+
+        if (user) {
+          // Set current user in localStorage
+          localStorage.setItem(
+            "currentUser",
+            JSON.stringify({
+              username: user.username,
+              profilePicture: user.profilePicture,
+            }),
+          )
+
+          // Redirect to index page
+          window.location.href = "index.html"
+        } else {
+          alert("Invalid username or password")
+        }
+      })
+    }
+
+    // Register form submission
+    const registerForm = document.getElementById("register-form")
+    if (registerForm) {
+      registerForm.addEventListener("submit", (e) => {
+        e.preventDefault()
+
+        const username = document.getElementById("register-username").value
+        const password = document.getElementById("register-password").value
+        const confirmPassword = document.getElementById("register-confirm-password").value
+        const profilePicture = document.getElementById("profile-image-preview").src
+
+        // Validate passwords match
+        if (password !== confirmPassword) {
+          alert("Passwords do not match")
+          return
+        }
+
+        // Get users from localStorage
+        const users = JSON.parse(localStorage.getItem("users")) || []
+
+        // Check if username already exists
+        if (users.some((u) => u.username === username)) {
+          alert("Username already exists")
+          return
+        }
+
+        // Add new user
+        users.push({
+          username,
+          password,
+          profilePicture,
+          ownedGames: [],
+        })
+
+        // Save users to localStorage
+        localStorage.setItem("users", JSON.stringify(users))
+
+        // Set current user
+        localStorage.setItem(
+          "currentUser",
+          JSON.stringify({
+            username,
+            profilePicture,
+          }),
+        )
+
+        // Redirect to index page
+        window.location.href = "index.html"
+      })
+    }
+  }
+
+  // Store page functionality
+  if (currentPage === "store.html") {
+    // Game data
+    const games = [
+      {
+        id: 1,
+        title: "Game 1",
+        description: "Action-packed adventure with stunning graphics and immersive gameplay.",
+        price: 59.99,
+        image: "https://via.placeholder.com/300x200",
+        link: "game1.html",
+      },
+      {
+        id: 2,
+        title: "Game 2",
+        description: "Strategic RPG with deep character development and branching storylines.",
+        price: 49.99,
+        image: "https://via.placeholder.com/300x200",
+        link: "game2.html",
+      },
+      {
+        id: 3,
+        title: "Game 3",
+        description: "Open-world exploration with realistic physics and dynamic weather systems.",
+        price: 69.99,
+        image: "https://via.placeholder.com/300x200",
+        link: "game3.html",
+      },
+      {
+        id: 4,
+        title: "Game 4",
+        description: "Competitive multiplayer shooter with customizable loadouts and seasonal events.",
+        price: 39.99,
+        image: "https://via.placeholder.com/300x200",
+        link: "game4.html",
+      },
+      {
+        id: 5,
+        title: "Game 5",
+        description: "Indie puzzle game with unique art style and mind-bending challenges.",
+        price: 24.99,
+        image: "https://via.placeholder.com/300x200",
+        link: "game5.html",
+      },
+    ]
+
+    // Get user's owned games
+    const users = JSON.parse(localStorage.getItem("users")) || []
+    const user = users.find((u) => u.username === currentUser.username)
+
+    if (!user) {
+      window.location.href = "login.html"
+      return
+    }
+
+    const ownedGames = user.ownedGames || []
+    const ownedGameIds = ownedGames.map((game) => game.id)
+
+    // Render games in store
+    const storeGrid = document.getElementById("store-grid")
+    const mobileStoreGrid = document.getElementById("mobile-store-grid")
+
+    if (storeGrid && mobileStoreGrid) {
+      games.forEach((game) => {
+        const isOwned = ownedGameIds.includes(game.id)
+
+        const gameCard = document.createElement("div")
+        gameCard.className = "game-card"
+
+        gameCard.innerHTML = `
+                    <img src="${game.image}" alt="${game.title}">
+                    <h3>${game.title}</h3>
+                    <p>${game.description}</p>
+                    <div class="price">$${game.price.toFixed(2)}</div>
+                    ${
+                      isOwned
+                        ? `<div class="owned-badge">Owned</div>`
+                        : `<button class="buy-button" data-id="${game.id}">Buy Now</button>`
+                    }
+                `
+
+        // Clone for mobile
+        const mobileGameCard = gameCard.cloneNode(true)
+
+        // Add to grids
+        storeGrid.appendChild(gameCard)
+        mobileStoreGrid.appendChild(mobileGameCard)
+      })
+
+      // Purchase functionality
+      const modal = document.getElementById("purchase-modal")
+      const gameTitle = document.getElementById("game-title")
+      const gamePrice = document.getElementById("game-price")
+      const closeModal = document.querySelector(".close-modal")
+      const cancelPurchase = document.querySelector(".cancel-purchase")
+      const confirmPurchase = document.querySelector(".confirm-purchase")
+
+      let selectedGame = null
+
+      // Add event listeners to buy buttons
+      document.querySelectorAll(".buy-button").forEach((button) => {
+        button.addEventListener("click", function () {
+          const gameId = Number.parseInt(this.getAttribute("data-id"))
+          selectedGame = games.find((game) => game.id === gameId)
+
+          if (selectedGame) {
+            gameTitle.textContent = selectedGame.title
+            gamePrice.textContent = `$${selectedGame.price.toFixed(2)}`
+            modal.classList.add("active")
+          }
+        })
+      })
+
+      // Close modal
+      if (closeModal) {
+        closeModal.addEventListener("click", () => {
+          modal.classList.remove("active")
+        })
+      }
+
+      if (cancelPurchase) {
+        cancelPurchase.addEventListener("click", () => {
+          modal.classList.remove("active")
+        })
+      }
+
+      // Confirm purchase
+      if (confirmPurchase) {
+        confirmPurchase.addEventListener("click", () => {
+          if (selectedGame) {
+            // Add game to user's library
+            user.ownedGames = user.ownedGames || []
+            user.ownedGames.push(selectedGame)
+
+            // Update user in localStorage
+            const userIndex = users.findIndex((u) => u.username === user.username)
+            if (userIndex !== -1) {
+              users[userIndex] = user
+              localStorage.setItem("users", JSON.stringify(users))
+            }
+
+            // Close modal
+            modal.classList.remove("active")
+
+            // Show success message
+            alert(`You have successfully purchased ${selectedGame.title}!`)
+
+            // Refresh page to update UI
+            window.location.reload()
+          }
+        })
+      }
+
+      // Close modal when clicking outside
+      window.addEventListener("click", (event) => {
+        if (event.target === modal) {
+          modal.classList.remove("active")
+        }
+      })
+    }
+  }
+
+  // Library page functionality
+  if (currentPage === "library.html") {
+    // Get user's owned games
+    const users = JSON.parse(localStorage.getItem("users")) || []
+    const user = users.find((u) => u.username === currentUser.username)
+
+    if (!user) {
+      window.location.href = "login.html"
+      return
+    }
+
+    const ownedGames = user.ownedGames || []
+
+    // Display owned games
+    const libraryContainer = document.getElementById("library-container")
+    const mobileLibraryContainer = document.getElementById("mobile-library-container")
+
+    if (libraryContainer && mobileLibraryContainer) {
+      if (ownedGames.length === 0) {
+        // Display empty library message
+        const emptyMessage = `
+                    <div class="empty-library">
+                        <h3>Your library is empty</h3>
+                        <p>Visit the store to purchase games</p>
+                        <a href="store.html" class="store-link">Go to Store</a>
+                    </div>
+                `
+
+        libraryContainer.innerHTML = emptyMessage
+        mobileLibraryContainer.innerHTML = emptyMessage
+      } else {
+        // Create grid for desktop
+        const libraryGrid = document.createElement("div")
+        libraryGrid.className = "library-grid"
+
+        // Create grid for mobile
+        const mobileLibraryGrid = document.createElement("div")
+        mobileLibraryGrid.className = "library-grid"
+
+        // Add each game to the grids
+        ownedGames.forEach((game) => {
+          const gameCard = `
+                        <div class="game-card">
+                            <img src="${game.image}" alt="${game.title}">
+                            <h3>${game.title}</h3>
+                            <p>${game.description}</p>
+                            <a href="${game.link}" class="play-button">Play Now</a>
+                        </div>
+                    `
+
+          libraryGrid.innerHTML += gameCard
+          mobileLibraryGrid.innerHTML += gameCard
+        })
+
+        libraryContainer.appendChild(libraryGrid)
+        mobileLibraryContainer.appendChild(mobileLibraryGrid)
+      }
+    }
+  }
+
+  // Theme functions
+  function toggleTheme(isDarkMode) {
+    if (isDarkMode) {
+      document.body.classList.add("dark-theme")
+      localStorage.setItem("darkMode", "true")
+    } else {
+      document.body.classList.remove("dark-theme")
+      localStorage.setItem("darkMode", "false")
+    }
+
+    // Sync the other toggle if it exists
+    const otherToggle = themeToggle === document.activeElement ? mobileThemeToggle : themeToggle
+    if (otherToggle) {
+      otherToggle.checked = isDarkMode
+    }
+  }
+
+  function applyTheme() {
+    const isDarkMode = localStorage.getItem("darkMode") === "true"
+    if (isDarkMode) {
+      document.body.classList.add("dark-theme")
+    } else {
+      document.body.classList.remove("dark-theme")
+    }
+  }
+})
