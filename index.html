@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaming Platform</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Desktop View -->
+    <div class="desktop-view">
+        <div class="container">
+            <div class="grid">
+                <!-- Left Navigation -->
+                <div class="sidebar">
+                    <div class="nav-buttons">
+                        <button onclick="window.location.href='store.html'">Store</button>
+                        <button onclick="window.location.href='library.html'">Library</button>
+                        <button onclick="window.location.href='app-settings.html'">App Settings</button>
+                        <button onclick="window.location.href='friends.html'">Friends</button>
+                    </div>
+                    
+                    <div class="games-list">
+                        <h2>Games:</h2>
+                        <ul>
+                            <li><a href="game1.html">Game 1</a></li>
+                            <li><a href="game2.html">Game 2</a></li>
+                            <li><a href="game3.html">Game 3</a></li>
+                            <li><a href="game4.html">Game 4</a></li>
+                            <li><a href="game5.html">Game 5</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Main Content -->
+                <div class="main-content">
+                    <!-- Header -->
+                    <div class="header">
+                        <div class="logo-container">
+                            <a href="index.html">
+                                <div class="logo">Logo</div>
+                                <h1>Water</h1>
+                            </a>
+                        </div>
+                        <div class="user-settings" id="user-profile">
+                            <span id="username-display">Username</span>
+                            <div class="profile-pic">
+                                <img id="profile-pic-display" src="https://via.placeholder.com/32" alt="Profile Picture">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Welcome Content -->
+                    <div class="welcome-content">
+                        <h2>Welcome to Water Gaming Platform</h2>
+                        <p class="welcome-text">
+                            Explore our collection of games in the Store or check out your Library to play games you've already purchased.
+                        </p>
+                        
+                        <div class="welcome-buttons">
+                            <a href="store.html" class="welcome-button store">Browse Store</a>
+                            <a href="library.html" class="welcome-button library">My Library</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Mobile View -->
+    <div class="mobile-view">
+        <!-- Mobile Header -->
+        <div class="mobile-header">
+            <button id="menu-toggle" class="menu-button">☰</button>
+            <div class="mobile-title">
+                <div class="settings-icon">⚙️</div>
+                <a href="index.html">
+                    <span>Water</span>
+                </a>
+                <div class="profile-pic">
+                    <img id="mobile-profile-pic" src="https://via.placeholder.com/32" alt="Profile Picture">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation -->
+        <div id="mobile-nav" class="mobile-nav hidden">
+            <div class="mobile-nav-buttons">
+                <button onclick="window.location.href='store.html'">Store</button>
+                <button onclick="window.location.href='library.html'">Library</button>
+                <button onclick="window.location.href='app-settings.html'">App Settings</button>
+                <button onclick="window.location.href='friends.html'">Friends</button>
+            </div>
+        </div>
+        
+        <!-- Mobile Welcome -->
+        <div class="mobile-welcome-container">
+            <div class="welcome-content">
+                <h2>Welcome to Water Gaming Platform</h2>
+                <p class="welcome-text">
+                    Explore our collection of games in the Store or check out your Library to play games you've already purchased.
+                </p>
+                
+                <div class="welcome-buttons">
+                    <a href="store.html" class="welcome-button store">Browse Store</a>
+                    <a href="library.html" class="welcome-button library">My Library</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
