@@ -165,6 +165,12 @@ body {
   font-size: 24px;
 }
 
+.logo-img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
 .user-settings {
   display: flex;
   align-items: center;
