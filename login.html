@@ -10,7 +10,7 @@
     <div class="login-container">
         <div class="logo-container logo-center">
             <a href="index.html">
-                <div class="logo">Logo</div>
+                <img src="images/Logo.png" alt="Logo" class="logo" onerror="this.outerHTML='<div class=\'logo\'>Logo</div>'">
                 <h1>Water</h1>
             </a>
         </div>
@@ -34,6 +34,11 @@
                 
                 <button type="submit" class="login-button">Login</button>
             </form>
+            
+            <div class="guest-option">
+                <p>Or</p>
+                <button id="guest-login" class="guest-button">Continue as Guest</button>
+            </div>
         </div>
         
         <div class="tab-content" id="register-tab">
@@ -63,6 +68,11 @@
                 
                 <button type="submit" class="login-button">Register</button>
             </form>
+            
+            <div class="guest-option">
+                <p>Or</p>
+                <button id="guest-register" class="guest-button">Continue as Guest</button>
+            </div>
         </div>
     </div>
 
