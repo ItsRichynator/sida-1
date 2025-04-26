@@ -38,7 +38,7 @@
                     <div class="header">
                         <div class="logo-container">
                             <a href="index.html">
-                                <img src="Logo.png" alt="Water Logo" class="logo-img">
+                                <div class="logo">Logo</div>
                                 <h1>Water</h1>
                             </a>
                         </div>
@@ -63,6 +63,45 @@
                                     <span class="slider round"></span>
                                 </label>
                                 <span>Dark Mode</span>
+                            </div>
+                        </div>
+
+                        <div class="settings-section">
+                            <h3>Profile Settings</h3>
+                            <form id="profile-form">
+                                <div class="profile-upload">
+                                    <div class="profile-preview">
+                                        <img id="settings-profile-preview" src="https://via.placeholder.com/100" alt="Profile Preview">
+                                    </div>
+                                    <input type="file" id="settings-profile-image" accept="image/*" class="hidden">
+                                    <button type="button" class="upload-button" id="settings-upload-trigger">Change Profile Picture</button>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="settings-username">Username</label>
+                                    <input type="text" id="settings-username" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="settings-current-password">Current Password</label>
+                                    <input type="password" id="settings-current-password" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="settings-new-password">New Password (leave blank to keep current)</label>
+                                    <input type="password" id="settings-new-password">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="settings-confirm-password">Confirm New Password</label>
+                                    <input type="password" id="settings-confirm-password">
+                                </div>
+                                
+                                <button type="submit" class="save-button">Save Changes</button>
+                            </form>
+
+                            <div class="logout-section">
+                                <button id="logout-button" class="logout-button">Log Out</button>
                             </div>
                         </div>
                     </div>
@@ -109,6 +148,45 @@
                         <span class="slider round"></span>
                     </label>
                     <span>Dark Mode</span>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h3>Profile Settings</h3>
+                <form id="mobile-profile-form">
+                    <div class="profile-upload">
+                        <div class="profile-preview">
+                            <img id="mobile-settings-profile-preview" src="https://via.placeholder.com/100" alt="Profile Preview">
+                        </div>
+                        <input type="file" id="mobile-settings-profile-image" accept="image/*" class="hidden">
+                        <button type="button" class="upload-button" id="mobile-settings-upload-trigger">Change Profile Picture</button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mobile-settings-username">Username</label>
+                        <input type="text" id="mobile-settings-username" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mobile-settings-current-password">Current Password</label>
+                        <input type="password" id="mobile-settings-current-password" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mobile-settings-new-password">New Password (leave blank to keep current)</label>
+                        <input type="password" id="mobile-settings-new-password">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mobile-settings-confirm-password">Confirm New Password</label>
+                        <input type="password" id="mobile-settings-confirm-password">
+                    </div>
+                    
+                    <button type="submit" class="save-button">Save Changes</button>
+                </form>
+
+                <div class="logout-section">
+                    <button id="mobile-logout-button" class="logout-button">Log Out</button>
                 </div>
             </div>
         </div>

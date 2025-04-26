@@ -8,6 +8,8 @@
   --primary-hover-color: #1d4ed8;
   --success-color: #10b981;
   --success-hover-color: #15803d;
+  --danger-color: #ef4444;
+  --danger-hover-color: #dc2626;
   --shadow-color: rgba(0, 0, 0, 0.1);
   --shadow-color-hover: rgba(0, 0, 0, 0.2);
 }
@@ -22,6 +24,8 @@
   --primary-hover-color: #2563eb;
   --success-color: #10b981;
   --success-hover-color: #059669;
+  --danger-color: #f87171;
+  --danger-hover-color: #ef4444;
   --shadow-color: rgba(0, 0, 0, 0.3);
   --shadow-color-hover: rgba(0, 0, 0, 0.4);
 }
@@ -165,12 +169,6 @@ body {
   font-size: 24px;
 }
 
-.logo-img {
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
-}
-
 .user-settings {
   display: flex;
   align-items: center;
@@ -264,10 +262,6 @@ body {
 .mobile-title a {
   text-decoration: none;
   color: inherit;
-}
-
-.settings-icon {
-  font-size: 20px;
 }
 
 .mobile-title span {
@@ -847,6 +841,43 @@ input:checked + .slider:before {
 .no-friends-message h2 {
   font-size: 24px;
   color: var(--text-color);
+}
+
+/* Profile settings styles */
+.save-button {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 20px;
+}
+
+.save-button:hover {
+  background-color: var(--primary-hover-color);
+}
+
+.logout-section {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.logout-button {
+  padding: 10px 20px;
+  background-color: var(--danger-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.logout-button:hover {
+  background-color: var(--danger-hover-color);
 }
 
 /* Mobile-specific styles */
