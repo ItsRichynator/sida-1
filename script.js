@@ -130,6 +130,60 @@ document.addEventListener("DOMContentLoaded", () => {
       })
     }
 
+    // Ensure Guest user exists
+    const users = JSON.parse(localStorage.getItem("users")) || []
+    const guestUserExists = users.some((u) => u.username.toLowerCase() === "guest")
+
+    if (!guestUserExists) {
+      users.push({
+        username: "Guest",
+        password: "guest",
+        profilePicture: "images/default-guest.png",
+        ownedGames: [],
+      })
+      localStorage.setItem("users", JSON.stringify(users))
+    }
+
+    // Guest mode button in login tab
+    const guestmode = document.getElementById("guestmode")
+    if (guestmode) {
+      guestmode.addEventListener("click", () => {
+        loginAsGuest()
+      })
+    }
+
+    // Guest mode button in register tab
+    const guestLogin = document.getElementById("guest-login")
+    if (guestLogin) {
+      guestLogin.addEventListener("click", () => {
+        loginAsGuest()
+      })
+    }
+
+    // Function to login as guest
+    function loginAsGuest() {
+      // Get users from localStorage
+      const users = JSON.parse(localStorage.getItem("users")) || []
+
+      // Find guest user
+      const guestUser = users.find((u) => u.username.toLowerCase() === "guest")
+
+      if (guestUser) {
+        // Set current user in localStorage
+        localStorage.setItem(
+            "currentUser",
+            JSON.stringify({
+              username: guestUser.username,
+              profilePicture: guestUser.profilePicture,
+            }),
+        )
+        // Redirect to index page
+        window.location.href = "index.html"
+      } else {
+        alert("Guest account not found. Please try again or create an account.")
+      }
+    }
+
     // Login form submission
     const loginForm = document.getElementById("login-form")
     if (loginForm) {
@@ -148,11 +202,11 @@ document.addEventListener("DOMContentLoaded", () => {
         if (user) {
           // Set current user in localStorage
           localStorage.setItem(
-            "currentUser",
-            JSON.stringify({
-              username: user.username,
-              profilePicture: user.profilePicture,
-            }),
+              "currentUser",
+              JSON.stringify({
+                username: user.username,
+                profilePicture: user.profilePicture,
+              }),
           )
 
           // Redirect to index page
@@ -202,11 +256,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Set current user
         localStorage.setItem(
-          "currentUser",
-          JSON.stringify({
-            username,
-            profilePicture,
-          }),
+            "currentUser",
+            JSON.stringify({
+              username,
+              profilePicture,
+            }),
         )
 
         // Redirect to index page
@@ -290,10 +344,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     <p>${game.description}</p>
                     <div class="price">$${game.price.toFixed(2)}</div>
                     ${
-                      isOwned
-                        ? `<div class="owned-badge">Owned</div>`
-                        : `<button class="buy-button" data-id="${game.id}">Buy Now</button>`
-                    }
+            isOwned
+                ? `<div class="owned-badge">Owned</div>`
+                : `<button class="buy-button" data-id="${game.id}">Buy Now</button>`
+        }
                 `
 
         // Clone for mobile
@@ -510,11 +564,11 @@ document.addEventListener("DOMContentLoaded", () => {
       profileForm.addEventListener("submit", (e) => {
         e.preventDefault()
         saveProfileChanges(
-          settingsUsername.value,
-          document.getElementById("settings-current-password").value,
-          document.getElementById("settings-new-password").value,
-          document.getElementById("settings-confirm-password").value,
-          settingsProfilePreview.src,
+            settingsUsername.value,
+            document.getElementById("settings-current-password").value,
+            document.getElementById("settings-new-password").value,
+            document.getElementById("settings-confirm-password").value,
+            settingsProfilePreview.src,
         )
       })
     }
@@ -523,11 +577,11 @@ document.addEventListener("DOMContentLoaded", () => {
       mobileProfileForm.addEventListener("submit", (e) => {
         e.preventDefault()
         saveProfileChanges(
-          mobileSettingsUsername.value,
-          document.getElementById("mobile-settings-current-password").value,
-          document.getElementById("mobile-settings-new-password").value,
-          document.getElementById("mobile-settings-confirm-password").value,
-          mobileSettingsProfilePreview.src,
+            mobileSettingsUsername.value,
+            document.getElementById("mobile-settings-current-password").value,
+            document.getElementById("mobile-settings-new-password").value,
+            document.getElementById("mobile-settings-confirm-password").value,
+            mobileSettingsProfilePreview.src,
         )
       })
     }
@@ -561,8 +615,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Check if username already exists (if changing username)
       if (
-        newUsername !== currentUser.username &&
-        users.some((u) => u.username !== currentUser.username && u.username === newUsername)
+          newUsername !== currentUser.username &&
+          users.some((u) => u.username !== currentUser.username && u.username === newUsername)
       ) {
         alert("Username already exists")
         return
@@ -587,11 +641,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Update current user
         localStorage.setItem(
-          "currentUser",
-          JSON.stringify({
-            username: newUsername,
-            profilePicture: profilePicture,
-          }),
+            "currentUser",
+            JSON.stringify({
+              username: newUsername,
+              profilePicture: profilePicture,
+            }),
         )
 
         alert("Profile updated successfully")
