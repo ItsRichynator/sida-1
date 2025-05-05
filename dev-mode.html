@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer Mode - Gaming Platform</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .dev-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: var(--card-bg-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px var(--shadow-color);
+        }
+
+        .dev-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .dev-title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .dev-section {
+            margin-bottom: 30px;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+        }
+
+        .dev-section h2 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .user-card {
+            margin-bottom: 15px;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background-color: var(--bg-color);
+        }
+
+        .user-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .user-profile {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+
+        .user-info {
+            flex-grow: 1;
+        }
+
+        .user-name {
+            font-weight: bold;
+            font-size: 18px;
+            margin: 0;
+        }
+
+        .user-password {
+            margin: 5px 0;
+            font-family: monospace;
+            padding: 2px 6px;
+            background-color: var(--hover-color);
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .games-list {
+            margin-top: 10px;
+        }
+
+        .game-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            padding: 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background-color: var(--card-bg-color);
+        }
+
+        .game-image {
+            width: 60px;
+            height: 40px;
+            object-fit: cover;
+            margin-right: 10px;
+            border-radius: 4px;
+        }
+
+        .game-title {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .game-price {
+            margin-left: auto;
+            color: var(--primary-color);
+        }
+
+        .storage-section {
+            font-family: monospace;
+            white-space: pre-wrap;
+            background-color: var(--bg-color);
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+
+        .refresh-button {
+            padding: 8px 16px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .refresh-button:hover {
+            background-color: var(--primary-hover-color);
+        }
+
+        .back-button {
+            padding: 8px 16px;
+            background-color: var(--hover-color);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            text-decoration: none;
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .back-button:hover {
+            background-color: var(--border-color);
+        }
+
+        .clear-button {
+            padding: 8px 16px;
+            background-color: var(--danger-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .clear-button:hover {
+            background-color: var(--danger-hover-color);
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .no-data {
+            padding: 20px;
+            text-align: center;
+            color: var(--text-color);
+            background-color: var(--hover-color);
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+    <div class="dev-container">
+        <div class="dev-header">
+            <div class="dev-title">Developer Mode</div>
+            <div class="actions">
+                <a href="index.html" class="back-button">Back to App</a>
+                <button id="refresh-data" class="refresh-button">Refresh Data</button>
+                <button id="clear-data" class="clear-button">Clear All Data</button>
+            </div>
+        </div>
+
+        <div class="dev-section">
+            <h2>Users</h2>
+            <div id="users-container">
+                <!-- User data will be displayed here -->
+                <div class="no-data">No user data available</div>
+            </div>
+        </div>
+
+        <div class="dev-section">
+            <h2>Current User</h2>
+            <div id="current-user-container">
+                <!-- Current user data will be displayed here -->
+                <div class="no-data">No current user</div>
+            </div>
+        </div>
+
+        <div class="dev-section">
+            <h2>Theme Settings</h2>
+            <div id="theme-container">
+                <!-- Theme data will be displayed here -->
+                <div class="no-data">No theme data available</div>
+            </div>
+        </div>
+
+        <div class="dev-section">
+            <h2>Raw localStorage Data</h2>
+            <div id="raw-data" class="storage-section">
+                <!-- Raw localStorage data will be displayed here -->
+                No data available
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load and display all data
+            loadData();
+
+            // Add event listeners
+            document.getElementById('refresh-data').addEventListener('click', loadData);
+            document.getElementById('clear-data').addEventListener('click', clearAllData);
+        });
+
+        function loadData() {
+            // Load users data
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const usersContainer = document.getElementById('users-container');
+            
+            if (users.length === 0) {
+                usersContainer.innerHTML = '<div class="no-data">No user data available</div>';
+            } else {
+                usersContainer.innerHTML = '';
+                users.forEach(user => {
+                    const userCard = document.createElement('div');
+                    userCard.className = 'user-card';
+                    
+                    // Create user header with profile pic and basic info
+                    const userHeader = document.createElement('div');
+                    userHeader.className = 'user-header';
+                    
+                    const profilePic = document.createElement('img');
+                    profilePic.className = 'user-profile';
+                    profilePic.src = user.profilePicture || 'https://via.placeholder.com/50';
+                    profilePic.alt = user.username;
+                    profilePic.onerror = function() {
+                        this.src = 'https://via.placeholder.com/50';
+                    };
+                    
+                    const userInfo = document.createElement('div');
+                    userInfo.className = 'user-info';
+                    
+                    const userName = document.createElement('h3');
+                    userName.className = 'user-name';
+                    userName.textContent = user.username;
+                    
+                    const userPassword = document.createElement('div');
+                    userPassword.className = 'user-password';
+                    userPassword.textContent = `Password: ${user.password}`;
+                    
+                    userInfo.appendChild(userName);
+                    userInfo.appendChild(userPassword);
+                    
+                    userHeader.appendChild(profilePic);
+                    userHeader.appendChild(userInfo);
+                    userCard.appendChild(userHeader);
+                    
+                    // Add owned games if any
+                    if (user.ownedGames && user.ownedGames.length > 0) {
+                        const gamesTitle = document.createElement('h4');
+                        gamesTitle.textContent = 'Owned Games:';
+                        userCard.appendChild(gamesTitle);
+                        
+                        const gamesList = document.createElement('div');
+                        gamesList.className = 'games-list';
+                        
+                        user.ownedGames.forEach(game => {
+                            const gameItem = document.createElement('div');
+                            gameItem.className = 'game-item';
+                            
+                            const gameImage = document.createElement('img');
+                            gameImage.className = 'game-image';
+                            gameImage.src = game.image || 'https://via.placeholder.com/60x40';
+                            gameImage.alt = game.title;
+                            gameImage.onerror = function() {
+                                this.src = 'https://via.placeholder.com/60x40';
+                            };
+                            
+                            const gameTitle = document.createElement('span');
+                            gameTitle.className = 'game-title';
+                            gameTitle.textContent = game.title;
+                            
+                            const gamePrice = document.createElement('span');
+                            gamePrice.className = 'game-price';
+                            gamePrice.textContent = `$${game.price.toFixed(2)}`;
+                            
+                            gameItem.appendChild(gameImage);
+                            gameItem.appendChild(gameTitle);
+                            gameItem.appendChild(gamePrice);
+                            
+                            gamesList.appendChild(gameItem);
+                        });
+                        
+                        userCard.appendChild(gamesList);
+                    } else {
+                        const noGames = document.createElement('p');
+                        noGames.textContent = 'No owned games';
+                        userCard.appendChild(noGames);
+                    }
+                    
+                    usersContainer.appendChild(userCard);
+                });
+            }
+            
+            // Load current user data
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const currentUserContainer = document.getElementById('current-user-container');
+            
+            if (!currentUser) {
+                currentUserContainer.innerHTML = '<div class="no-data">No current user</div>';
+            } else {
+                currentUserContainer.innerHTML = '';
+                const userCard = document.createElement('div');
+                userCard.className = 'user-card';
+                
+                const userHeader = document.createElement('div');
+                userHeader.className = 'user-header';
+                
+                const profilePic = document.createElement('img');
+                profilePic.className = 'user-profile';
+                profilePic.src = currentUser.profilePicture || 'https://via.placeholder.com/50';
+                profilePic.alt = currentUser.username;
+                profilePic.onerror = function() {
+                    this.src = 'https://via.placeholder.com/50';
+                };
+                
+                const userInfo = document.createElement('div');
+                userInfo.className = 'user-info';
+                
+                const userName = document.createElement('h3');
+                userName.className = 'user-name';
+                userName.textContent = currentUser.username;
+                
+                userInfo.appendChild(userName);
+                
+                userHeader.appendChild(profilePic);
+                userHeader.appendChild(userInfo);
+                userCard.appendChild(userHeader);
+                
+                currentUserContainer.appendChild(userCard);
+            }
+            
+            // Load theme data
+            const isDarkMode = localStorage.getItem('darkMode') === 'true';
+            const themeContainer = document.getElementById('theme-container');
+            
+            themeContainer.innerHTML = `
+                <div class="user-card">
+                    <h3>Current Theme: ${isDarkMode ? 'Dark Mode' : 'Light Mode'}</h3>
+                    <p>Value in localStorage: ${localStorage.getItem('darkMode') || 'not set'}</p>
+                </div>
+            `;
+
+            // Load raw localStorage data
+            const rawDataContainer = document.getElementById('raw-data');
+            let rawData = '';
+
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                let value = localStorage.getItem(key);
+
+                try {
+                    // Try to parse and prettify JSON
+                    const parsedValue = JSON.parse(value);
+                    value = JSON.stringify(parsedValue, null, 2);
+                } catch (e) {
+                    // If not JSON, use as is
+                }
+
+                rawData += `${key}:\n${value}\n\n`;
+            }
+
+            if (rawData) {
+                rawDataContainer.textContent = rawData;
+            } else {
+                rawDataContainer.textContent = 'No data in localStorage';
+            }
+        }
+
+        function clearAllData() {
+            if (confirm('Are you sure you want to clear all localStorage data? This will remove all users, games, and settings.')) {
+                localStorage.clear();
+                alert('All data has been cleared. The page will now reload.');
+                loadData();
+            }
+        }
+    </script>
+</body>
+</html>
