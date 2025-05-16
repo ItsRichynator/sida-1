@@ -282,7 +282,7 @@ body {
 
 .mobile-nav-buttons {
   display: flex;
-  gap: 10px;
+  gap: 5%;
 }
 
 .mobile-nav-buttons button {
@@ -292,6 +292,7 @@ body {
   background-color: var(--card-bg-color);
   color: var(--text-color);
   cursor: pointer;
+  width: 20%
 }
 
 .mobile-games {
@@ -596,7 +597,7 @@ body {
 }
 
 .form-group input {
-  width: 100%;
+  width: 95%;
   padding: 10px;
   border: 1px solid var(--border-color);
   border-radius: 6px;

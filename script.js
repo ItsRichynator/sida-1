@@ -224,6 +224,7 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault()
 
         const username = document.getElementById("register-username").value
+        const email = document.getElementById("register-email").value
         const password = document.getElementById("register-password").value
         const confirmPassword = document.getElementById("register-confirm-password").value
         const profilePicture = document.getElementById("profile-image-preview").src
@@ -243,9 +244,16 @@ document.addEventListener("DOMContentLoaded", () => {
           return
         }
 
+        //Check if email is in use
+        /*if (email.some((e) => e.email === email)) {
+          alert("Email already exists")
+          return
+        }*/
+
         // Add new user
         users.push({
           username,
+          email,
           password,
           profilePicture,
           ownedGames: [],
@@ -565,6 +573,7 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault()
         saveProfileChanges(
             settingsUsername.value,
+            document.getElementById("settings-email").value,
             document.getElementById("settings-current-password").value,
             document.getElementById("settings-new-password").value,
             document.getElementById("settings-confirm-password").value,
@@ -579,6 +588,7 @@ document.addEventListener("DOMContentLoaded", () => {
         saveProfileChanges(
             mobileSettingsUsername.value,
             document.getElementById("mobile-settings-current-password").value,
+            document.getElementById("mobile-settings-email").value,
             document.getElementById("mobile-settings-new-password").value,
             document.getElementById("mobile-settings-confirm-password").value,
             mobileSettingsProfilePreview.src,
