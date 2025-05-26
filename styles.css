@@ -439,7 +439,7 @@ body {
 
 .game-card .owned-badge {
   display: block;
-  width: 100%;
+  width: 95%;
   padding: 8px;
   background-color: var(--success-color);
   color: white;
@@ -532,7 +532,7 @@ body {
 
 .play-button {
   display: block;
-  width: 100%;
+  width: 95%;
   padding: 8px;
   background-color: var(--success-color);
   color: white;
